@@ -1,26 +1,31 @@
-import React from 'react';
-import logo from './logo.svg';
-import './App.css';
+import React from "react";
+import { useData, useMaker } from "./hooks";
 
-function App() {
+export interface AppProps {}
+
+const App: React.FunctionComponent<AppProps> = () => {
+  const {
+    accounts,
+    transactions,
+    blocks,
+    addNewAccount,
+    addNewBlock,
+    addNewTransaction,
+  } = useData();
+  useMaker({
+    accounts,
+    onMakeAccount: addNewAccount,
+    onMakeBlock: addNewBlock,
+    onMakeTransaction: addNewTransaction,
+  });
+
   return (
-    <div className="App">
-      <header className="App-header">
-        <img src={logo} className="App-logo" alt="logo" />
-        <p>
-          Edit <code>src/App.tsx</code> and save to reload.
-        </p>
-        <a
-          className="App-link"
-          href="https://reactjs.org"
-          target="_blank"
-          rel="noopener noreferrer"
-        >
-          Learn React
-        </a>
-      </header>
+    <div>
+      {accounts.map((el) => (
+        <p key={el.address}>{el.address} {el.balance}</p>
+      ))}
     </div>
   );
-}
+};
 
 export default App;
