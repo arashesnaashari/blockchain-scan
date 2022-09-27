@@ -6,7 +6,13 @@ import {
   TRANSACTION_FEE,
 } from '../constants';
 import { IAccount, IBlock, ITransaction } from '../types';
-import { addressGenerator, amountGenerator, idGenerator, txHashGenerator } from '../utils';
+import {
+  addressGenerator,
+  amountGenerator,
+  idGenerator,
+  randomArrSelect,
+  txHashGenerator,
+} from '../utils';
 import useInterval from './useInterval';
 
 export interface UseMakerProps {
@@ -29,8 +35,8 @@ const useMaker = ({ accounts, onMakeAccount, onMakeBlock, onMakeTransaction }: U
       fee: TRANSACTION_FEE,
       amount: amountGenerator(),
       txHash: txHashGenerator(),
-      to: accountsRef.current[20]?.address,
-      from: accountsRef.current[0]?.address,
+      to: randomArrSelect(accountsRef.current)?.address,
+      from: randomArrSelect(accountsRef.current)?.address,
     };
     onMakeTransaction(newTransaction);
     currentTransactions.current.push(newTransaction);
@@ -39,7 +45,7 @@ const useMaker = ({ accounts, onMakeAccount, onMakeBlock, onMakeTransaction }: U
   const onMakeBlockHandler = () => {
     onMakeBlock({
       id: idGenerator(),
-      winner: accountsRef.current[22]?.address,
+      winner: randomArrSelect(accountsRef.current)?.address,
       transactions: currentTransactions.current.map(el => el.txHash),
     });
     currentTransactions.current = [];
