@@ -1,4 +1,4 @@
-import { useEffect, useMemo, useRef, useState } from 'react';
+import { useEffect, useMemo, useState } from 'react';
 import { BLOCK_WINNER_REWARD } from '../constants';
 import { ADDRESSES } from '../data';
 import {
@@ -10,7 +10,6 @@ import {
 import { IAccount, IBlock, ITransaction } from '../types';
 
 const useData = () => {
-  // const accountsRef = useRef<Array<IAccount>>([]);
   const [accounts, setAccounts] = useState<Array<IAccount>>([]);
   const [transactions, setTransactions] = useState<Array<ITransaction>>([]);
   const [blocks, setBlocks] = useState<Array<IBlock>>([]);
@@ -29,30 +28,8 @@ const useData = () => {
   };
 
   const addNewTransaction = (transaction: ITransaction) => {
-    // console.log('New Transaction', transaction);
+    console.log('New Transaction', transaction);
 
-    // const fromIdx = findAccountIndexFromAddress(transaction.from, prev);
-    // const toIdx = findAccountIndexFromAddress(transaction.to, prev);
-    // if (fromIdx === -1 || toIdx === -1) return;
-    // const isTransactionValid = transactionValidation(
-    //   transaction,
-    //   accountsRef.current[fromIdx],
-    //   accountsRef.current[toIdx],
-    // );
-    // if (isTransactionValid) {
-    //   accountsRef.current[fromIdx] = changeAccountBalance(
-    //     accountsRef.current[fromIdx],
-    //     transaction.amount + transaction.fee,
-    //     'minus',
-    //   );
-    //   accountsRef.current[toIdx] = changeAccountBalance(
-    //     accountsRef.current[toIdx],
-    //     transaction.amount,
-    //     'add',
-    //   );
-    // } else {
-    //   accountsRef.current[fromIdx] = suspendAccount(accountsRef.current[fromIdx]);
-    // }
     let isTransactionValid = false;
     setAccounts(prevState => {
       const prev = [...prevState];
@@ -75,7 +52,7 @@ const useData = () => {
   };
 
   const addNewBlock = (block: IBlock) => {
-    // console.log('New Block', block);
+    console.log('New Block', block);
 
     setAccounts(prevState => {
       const prev = [...prevState];
@@ -89,11 +66,6 @@ const useData = () => {
   useEffect(() => {
     setAccounts(ADDRESSES);
   }, []);
-
-  // useEffect(() => {
-  //   console.log(2, accounts);
-  //   accountsRef.current = [...accounts];
-  // }, [accounts]);
 
   return {
     accounts,
