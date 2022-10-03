@@ -77,7 +77,8 @@ const useData = () => {
   const addNewBlock = (block: IBlock) => {
     // console.log('New Block', block);
 
-    setAccounts(prev => {
+    setAccounts(prevState => {
+      const prev = [...prevState];
       const idx = findAccountIndexFromAddress(block.winner, prev);
       prev[idx] = changeAccountBalance(prev[idx], BLOCK_WINNER_REWARD, 'add');
       return prev;
