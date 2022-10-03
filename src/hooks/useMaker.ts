@@ -24,7 +24,7 @@ export interface UseMakerProps {
 
 const useMaker = ({ accounts, onMakeAccount, onMakeBlock, onMakeTransaction }: UseMakerProps) => {
   const accountsRef = useRef<Array<IAccount>>([]);
-  const currentTransactions = useRef<Array<ITransaction>>([]);
+  const currentTransactions = useRef<Array<string>>([]);
 
   const onMakeAddressHandler = () => {
     onMakeAccount(addressGenerator());
@@ -39,14 +39,14 @@ const useMaker = ({ accounts, onMakeAccount, onMakeBlock, onMakeTransaction }: U
       from: randomArrSelect(accountsRef.current)?.address,
     };
     onMakeTransaction(newTransaction);
-    currentTransactions.current.push(newTransaction);
+    currentTransactions.current.push(newTransaction.txHash);
   };
 
   const onMakeBlockHandler = () => {
     onMakeBlock({
       id: idGenerator(),
       winner: randomArrSelect(accountsRef.current)?.address,
-      transactions: currentTransactions.current.map(el => el.txHash),
+      transactions: currentTransactions.current,
     });
     currentTransactions.current = [];
   };

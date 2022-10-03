@@ -16,7 +16,7 @@ export interface ITransaction {
 }
 
 export interface IBlock {
-  id: number;
+  id: string;
   transactions: Array<string>;
   winner: string;
 }

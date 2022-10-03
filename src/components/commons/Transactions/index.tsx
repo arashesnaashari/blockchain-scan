@@ -1,20 +1,28 @@
+import clsx from 'clsx';
 import React from 'react';
-import { ITransaction } from '../../../types';
+import { IBlock, ITransaction } from '../../../types';
 import { fitString } from '../../../utils';
 import Box from '../../cubes/Box';
 
 export interface TransactionsProps {
   title: string;
+  selectedBlock?: null | IBlock;
   transactions: Array<ITransaction>;
 }
 
-const Transactions: React.FunctionComponent<TransactionsProps> = ({ title, transactions }) => {
+const Transactions: React.FunctionComponent<TransactionsProps> = ({
+  title,
+  transactions,
+  selectedBlock,
+}) => {
   return (
     <Box title={title}>
       <ul className="list-group list-group-flush">
         {transactions.map(el => (
           <li
-            className="list-group-item d-flex justify-content-between align-items-start"
+            className={clsx('list-group-item d-flex justify-content-between align-items-start', {
+              'list-group-item-info': selectedBlock?.transactions?.includes?.(el.txHash),
+            })}
             key={el.txHash}
           >
             <div className="me-auto">

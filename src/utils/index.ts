@@ -21,7 +21,7 @@ export const txHashGenerator = () => {
 };
 
 export const idGenerator = () => {
-  return new Date().getMilliseconds();
+  return generateId(8);
 };
 
 export const randomArrSelect = <T>(arr: Array<T>): T => {
