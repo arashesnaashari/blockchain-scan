@@ -10,6 +10,7 @@ export interface AccountsProps {
 
 const Accounts: React.FunctionComponent<AccountsProps> = memo<AccountsProps>(
   ({ accounts }) => {
+    // console.log('Accounts Rerender');
     return (
       <Box title="Latest Accounts">
         <ul className="list-group list-group-flush">
@@ -31,7 +32,17 @@ const Accounts: React.FunctionComponent<AccountsProps> = memo<AccountsProps>(
     );
   },
   (prevProps, nextProps) => {
-    return prevProps.accounts.length === nextProps.accounts.length;
+    // console.log(prevProps, nextProps);
+    if (prevProps.accounts.length !== nextProps.accounts.length) {
+      return false;
+    }
+    let equal = true;
+    prevProps.accounts.forEach((prevUser, index) => {
+      if (prevUser.isSuspend !== nextProps.accounts[index].isSuspend) {
+        equal = false;
+      }
+    });
+    return equal;
   },
 );
 

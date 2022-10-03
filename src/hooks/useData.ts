@@ -4,6 +4,7 @@ import { ADDRESSES } from '../data';
 import {
   changeAccountBalance,
   findAccountIndexFromAddress,
+  suspendAccount,
   transactionValidation,
 } from '../functions';
 import { IAccount, IBlock, ITransaction } from '../types';
@@ -24,11 +25,14 @@ const useData = () => {
 
   const addNewAccount = (address: string) => {
     console.log('New Address', address);
-    setAccounts(prev => [...prev, { address, balance: 0, isSuspend: false }]);
+    setAccounts(prev => {
+      console.log(22, prev.length);
+      return [...prev, { address, balance: 0, isSuspend: false }];
+    });
   };
 
   const addNewTransaction = (transaction: ITransaction) => {
-    console.log('New Transaction', transaction);
+    // console.log('New Transaction', transaction);
     const fromIdx = findAccountIndexFromAddress(transaction.from, accountsRef.current);
     const toIdx = findAccountIndexFromAddress(transaction.to, accountsRef.current);
 
@@ -49,13 +53,15 @@ const useData = () => {
         transaction.amount,
         'add',
       );
-      setAccounts(accountsRef.current);
+    } else {
+      accountsRef.current[fromIdx] = suspendAccount(accountsRef.current[fromIdx]);
     }
+    setAccounts(accountsRef.current);
     setTransactions(prev => [...prev, { ...transaction, isSuccess: isTransactionValid }]);
   };
 
   const addNewBlock = (block: IBlock) => {
-    console.log('New Block', block);
+    // console.log('New Block', block);
     const idx = findAccountIndexFromAddress(block.winner, accountsRef.current);
     accountsRef.current[idx] = changeAccountBalance(
       accountsRef.current[idx],
@@ -71,7 +77,8 @@ const useData = () => {
   }, []);
 
   useEffect(() => {
-    accountsRef.current = accounts;
+    console.log(2, accounts);
+    accountsRef.current = [...accounts];
   }, [accounts]);
 
   return {
