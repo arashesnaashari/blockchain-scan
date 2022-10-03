@@ -32,7 +32,7 @@ const Accounts: React.FunctionComponent<AccountsProps> = memo<AccountsProps>(
     );
   },
   (prevProps, nextProps) => {
-    // console.log(prevProps, nextProps);
+    console.log(prevProps, nextProps);
     if (prevProps.accounts.length !== nextProps.accounts.length) {
       return false;
     }
