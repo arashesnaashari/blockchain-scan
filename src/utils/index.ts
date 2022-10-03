@@ -27,3 +27,7 @@ export const idGenerator = () => {
 export const randomArrSelect = <T>(arr: Array<T>): T => {
   return arr[Math.floor(Math.random() * arr.length)];
 };
+
+export const fitString = (val: string, step = 6): string => {
+  return `${val?.slice(0, step)}...${val?.slice(-step)}`;
+};

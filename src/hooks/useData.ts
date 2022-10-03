@@ -1,4 +1,4 @@
-import { useEffect, useRef, useState } from 'react';
+import { useEffect, useMemo, useRef, useState } from 'react';
 import { BLOCK_WINNER_REWARD } from '../constants';
 import { ADDRESSES } from '../data';
 import {
@@ -13,6 +13,14 @@ const useData = () => {
   const [accounts, setAccounts] = useState<Array<IAccount>>([]);
   const [transactions, setTransactions] = useState<Array<ITransaction>>([]);
   const [blocks, setBlocks] = useState<Array<IBlock>>([]);
+
+  const successTransactions = useMemo(() => {
+    return transactions.filter(el => el.isSuccess);
+  }, [transactions]);
+
+  const failTransactions = useMemo(() => {
+    return transactions.filter(el => !el.isSuccess);
+  }, [transactions]);
 
   const addNewAccount = (address: string) => {
     console.log('New Address', address);
@@ -70,6 +78,8 @@ const useData = () => {
     accounts,
     transactions,
     blocks,
+    successTransactions,
+    failTransactions,
     addNewAccount,
     addNewTransaction,
     addNewBlock,

@@ -1,3 +1,5 @@
+import { ReactNode } from 'react';
+
 export interface IAccount {
   address: string;
   balance: number;
@@ -17,4 +19,8 @@ export interface IBlock {
   id: number;
   transactions: Array<string>;
   winner: string;
+}
+
+export interface CommonProps {
+  children?: ReactNode;
 }
