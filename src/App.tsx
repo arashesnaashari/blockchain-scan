@@ -26,7 +26,7 @@ const App: React.FunctionComponent<AppProps> = () => {
   return (
     <div className="container my-4">
       <h1 className="text-center mb-4">Blockchain Scan</h1>
-      <div className="row">
+      <div className="row gy-4">
         <div className="col-lg-6 col-12">
           <Blocks blocks={blocks} />
         </div>

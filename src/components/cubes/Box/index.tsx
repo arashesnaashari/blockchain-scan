@@ -8,7 +8,7 @@ export interface BoxProps extends CommonProps {
 
 const Box: React.FunctionComponent<BoxProps> = ({ title, children }) => {
   return (
-    <div className="card box mb-3">
+    <div className="card box">
       <div className="card-header">
         <h5 className="card-title my-2">{title}</h5>
       </div>
